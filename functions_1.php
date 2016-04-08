@@ -1,7 +1,7 @@
 <?php
 
-function print_greeting() {
-    print "Welcome Joe";
+function get_greeting() {
+    return "Welcome Joe";
 }
 
 ?>
@@ -9,11 +9,13 @@ function print_greeting() {
 <html>
     <head>
         <title>
-            <?php print_greeting(); ?> 
+            <?php 
+            $greeting = get_greeting();
+            print $greeting; ?>
         </title>
     </head>
     <body>
-        <?php print_greeting(); ?>
+        <?php print get_greeting(); ?>
     </body>
 </html>
 
