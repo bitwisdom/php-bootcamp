@@ -2,10 +2,13 @@
 
 include 'vendor/autoload.php';
 
+use Bitwisdom\Reviews\Restaurant;
+use Bitwisdom\Reviews\Examples\TestExample;
+
 $example = new Bitwisdom\Reviews\Examples\TestExample();
 
-$restaurant_one = new Bitwisdom\Reviews\Restaurant("China King");
-$restaurant_two = new Bitwisdom\Reviews\Restaurant("Burger Shack");
+$restaurant_one = new Restaurant("China King");
+$restaurant_two = new Restaurant("Burger Shack");
 
 //var_dump($restaurant_one);
 //var_dump($restaurant_two);
