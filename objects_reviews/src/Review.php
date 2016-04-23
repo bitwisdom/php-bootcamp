@@ -2,7 +2,7 @@
 
 namespace Bitwisdom\Reviews;
 
-use Bitwisdom\Reviews\Restaurant;
+use Bitwisdom\Reviews\Business;
 
 class Review {
     
@@ -16,18 +16,18 @@ class Review {
     
     /**
      *
-     * @var Restaurant
+     * @var Business
      */
-    private $restaurant;
+    private $business;
     
     /**
      * 
      * @param int $score
-     * @param Restaurant $restaurant
+     * @param Business $business
      */
-    public function __construct(int $score, Restaurant $restaurant) {
+    public function __construct(int $score, Business $business) {
         $this->score = $score;
-        $this->restaurant = $restaurant;
+        $this->business = $business;
     }
 
     /**
@@ -40,10 +40,10 @@ class Review {
 
     /**
      * 
-     * @return Restaurant
+     * @return Business
      */
-    public function getRestaurant() {
-        return $this->restaurant;
+    public function getBusiness() {
+        return $this->business;
     }
 
     /**
@@ -56,10 +56,10 @@ class Review {
 
     /**
      * 
-     * @param Restaurant $restaurant
+     * @param Business $business
      */
-    public function setRestaurant(Restaurant $restaurant) {
-        $this->restaurant = $restaurant;
+    public function setBusiness(Business $business) {
+        $this->business = $business;
     }    
 
 }
