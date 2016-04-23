@@ -8,10 +8,10 @@ use Bitwisdom\Reviews\Plumber;
 use Bitwisdom\Reviews\Review;
 
 $businesses = [];
-$businesses[] = new Restaurant("China King");
-$businesses[] = new Restaurant("Burger Shack");
-$businesses[] = new Accountant("Jessica Jones");
-$businesses[] = new Accountant("Bob Roberts");
+$businesses[] = new Restaurant("China King", "Chinese");
+$businesses[] = new Restaurant("Burger Shack", "Diner");
+$businesses[] = new Accountant("Jessica Jones", TRUE);
+$businesses[] = new Accountant("Bob Roberts", FALSE);
 $businesses[] = new Plumber("Ace Plumbing");
 $businesses[] = new Plumber("Clog Busters");
 

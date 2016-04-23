@@ -14,14 +14,21 @@ class Business {
      *
      * @var string
      */
-    private $name;
+    protected $name;
+    
+    /**
+     *
+     * @var string
+     */
+    private $type;
     
     /**
      * 
      * @param string $name
      */
-    public function __construct(string $name) {
+    public function __construct(string $name, string $type) {
         $this->name = $name;
+        $this->type = $type;
         self::$businessCount++;
     }
     
@@ -48,5 +55,15 @@ class Business {
     public function setName(string $name) {
         $this->name = $name;
     }
+    
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+    }
+
+
 
 }

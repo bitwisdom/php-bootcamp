@@ -15,6 +15,7 @@ use Bitwisdom\Reviews\Business;
     <body>
         <?php foreach ($businesses as $i => $business): ?>
             <h2><?php print $business->getName(); ?></h2>
+            <p><?php print $business->getType(); ?></p>
             <?php foreach ($reviews as $review): ?>
                 <?php if ($review->getBusiness() == $business): ?>
                     <div>Score: <?php print $review->getScore(); ?>
