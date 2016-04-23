@@ -1,28 +1,21 @@
 <?php
 
-include 'vendor/autoload.php';
+include 'bootstrap.php';
 
-use Bitwisdom\Reviews\Restaurant;
-use Bitwisdom\Reviews\Review;
+?>
 
-$restaurant_one = new Restaurant("China King");
-$restaurant_two = new Restaurant("Burger Shack");
-
-$review_one = new Review(10, $restaurant_one);
-$review_two = new Review(7, $restaurant_two);
-$review_three = new Review(6, $restaurant_one);
-
-
-var_dump($review_one);
-var_dump($review_two);
-var_dump($review_three);
-
-//var_dump($restaurant_one);
-//var_dump($restaurant_two);
-//var_dump($restaurant_one);
-
-print $review_one->getRestaurant()->getName() . ': ' .
-        $review_one->getScore() . '<br />';
-
-print $review_three->getRestaurant()->getName() . ': ' .
-        $review_three->getScore() . '<br />';
+<html>
+    <head>
+        <title>Restaurant Reviews</title>
+    </head>
+    <body>
+        <?php foreach ($restaurants as $i => $restaurant): ?>
+            <h2><?php print $restaurant->getName(); ?></h2>
+            <?php foreach ($reviews as $review): ?>
+                <?php if ($review->getRestaurant() == $restaurant): ?>
+                    <div>Score: <?php print $review->getScore(); ?></div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </body>
+</html>
