@@ -2,6 +2,8 @@
 
 include 'bootstrap.php';
 
+use Bitwisdom\Reviews\Restaurant;
+
 ?>
 
 <html>
@@ -17,5 +19,9 @@ include 'bootstrap.php';
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endforeach; ?>
+        
+       <p>
+           <?php print Restaurant::$restaurantCount; ?> total restaurants.
+       </p>
     </body>
 </html>
