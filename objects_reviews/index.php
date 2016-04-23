@@ -3,6 +3,7 @@
 include 'bootstrap.php';
 
 use Bitwisdom\Reviews\Restaurant;
+use Bitwisdom\Reviews\Review;
 
 ?>
 
@@ -15,7 +16,8 @@ use Bitwisdom\Reviews\Restaurant;
             <h2><?php print $restaurant->getName(); ?></h2>
             <?php foreach ($reviews as $review): ?>
                 <?php if ($review->getRestaurant() == $restaurant): ?>
-                    <div>Score: <?php print $review->getScore(); ?></div>
+                    <div>Score: <?php print $review->getScore(); ?>
+                    of <?php print Review::MAX_SCORE; ?>.</div>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endforeach; ?>

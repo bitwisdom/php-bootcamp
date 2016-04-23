@@ -6,6 +6,8 @@ use Bitwisdom\Reviews\Restaurant;
 
 class Review {
     
+    const MAX_SCORE = 10;
+    
     /**
      *
      * @var int 
