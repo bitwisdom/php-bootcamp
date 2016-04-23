@@ -23,7 +23,7 @@ use Bitwisdom\Reviews\Review;
         <?php endforeach; ?>
         
        <p>
-           <?php print Restaurant::$restaurantCount; ?> total restaurants.
+           <?php print Restaurant::getRestaurantCount(); ?> total restaurants.
        </p>
     </body>
 </html>

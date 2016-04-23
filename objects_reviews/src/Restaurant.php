@@ -8,7 +8,7 @@ class Restaurant {
      *
      * @var int
      */
-    public static $restaurantCount = 0;
+    private static $restaurantCount = 0;
     
     /**
      *
@@ -23,6 +23,14 @@ class Restaurant {
     public function __construct(string $name) {
         $this->name = $name;
         self::$restaurantCount++;
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    public static function getRestaurantCount() {
+        return self::$restaurantCount;
     }
     
     /**
