@@ -18,8 +18,7 @@ use Bitwisdom\Reviews\Business;
             <p><?php print $business->getType(); ?></p>
             <?php foreach ($reviews as $review): ?>
                 <?php if ($review->getBusiness() == $business): ?>
-                    <div>Score: <?php print $review->getScore(); ?>
-                    of <?php print Review::MAX_SCORE; ?>.</div>
+                    <div><?php print $review->getDisplayString(); ?></div>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endforeach; ?>

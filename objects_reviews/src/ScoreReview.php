@@ -3,8 +3,9 @@
 namespace Bitwisdom\Reviews;
 
 use Bitwisdom\Reviews\Business;
+use Bitwisdom\Reviews\ReviewInterface;
 
-class Review {
+class ScoreReview implements ReviewInterface {
     
     const MAX_SCORE = 10;
     
@@ -61,5 +62,12 @@ class Review {
     public function setBusiness(Business $business) {
         $this->business = $business;
     }    
+    
+    /**
+     * @return string
+     */
+    public function getDisplayString() {
+        return 'Score: ' . $this->score . ' of ' . self::MAX_SCORE;
+    }
 
 }
