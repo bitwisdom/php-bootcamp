@@ -1,5 +1,7 @@
 <?php
 
+include_once 'vendor/autoload.php';
+
 if (count($argv) < 2) {
     echo "Missing required argument: Deliveries CSV file\n";
     die;
@@ -10,6 +12,14 @@ if (!file_exists($argv[1])) {
     die;
 }
 
+if (!file_exists('config/config.yml')) {
+    echo "Config file not found.\n";
+    die;
+}
+
+$yaml_parser = new Symfony\Component\Yaml\Parser();
+$config = $yaml_parser->parse(file_get_contents('config/config.yml'));
+
 $fh = fopen($argv[1], 'r');
 $header = fgetcsv($fh);
 $deliveries = [];
@@ -17,7 +27,9 @@ while($row = fgetcsv($fh)) {
     $deliveries[$row[0]] = $row[1];
 }
 
-$db = new PDO("mysql:dbname=php_examples;host=localhost", "root", "root");
+$dsn = $config['db']['type'] . ':dbname=' . $config['db']['name'] . 
+        ';host=' . $config['db']['host'];
+$db = new PDO($dsn, $config['db']['username'], $config['db']['password']);
 
 foreach ($deliveries as $tracking_number => $delivery_date) {
     echo "Updating delivery date for: " . $tracking_number . "\n";

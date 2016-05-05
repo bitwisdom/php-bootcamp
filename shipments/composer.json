@@ -1,0 +1,7 @@
+{
+    "name": "bitwisdom/deliveries",
+    "description": "Deliveries Importer",
+    "require": {
+        "symfony/yaml": "^3.0"
+    }
+}
