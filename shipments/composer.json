@@ -2,6 +2,12 @@
     "name": "bitwisdom/deliveries",
     "description": "Deliveries Importer",
     "require": {
-        "symfony/yaml": "^3.0"
+        "symfony/yaml": "^3.0",
+        "doctrine/orm": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bitwisdom\\Deliveries\\": "src/"
+        }
     }
 }

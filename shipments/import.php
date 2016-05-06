@@ -2,6 +2,9 @@
 
 include_once 'vendor/autoload.php';
 
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
 if (count($argv) < 2) {
     echo "Missing required argument: Deliveries CSV file\n";
     die;
@@ -27,32 +30,32 @@ while($row = fgetcsv($fh)) {
     $deliveries[$row[0]] = $row[1];
 }
 
-$dsn = $config['db']['type'] . ':dbname=' . $config['db']['name'] . 
-        ';host=' . $config['db']['host'];
-$db = new PDO($dsn, $config['db']['username'], $config['db']['password']);
+$paths = [__DIR__ . "/src"];
+
+// database configuration parameters
+$dbParams = array(
+    'driver'   => $config['db']['driver'],
+    'user'     => $config['db']['username'],
+    'password' => $config['db']['password'],
+    'dbname'   => $config['db']['name'],
+);
+$entityManagerConfig = Setup::createAnnotationMetadataConfiguration($paths);
+$entityManager = EntityManager::create($dbParams, $entityManagerConfig);
+
+$package_repo = $entityManager->getRepository('\Bitwisdom\Deliveries\Package');
 
 foreach ($deliveries as $tracking_number => $delivery_date) {
     echo "Updating delivery date for: " . $tracking_number . "\n";
-    $sth = $db->prepare("SELECT shipped FROM packages 
-            WHERE tracking_number = :tracking_number");
-    $sth->execute([
-        ':tracking_number' => $tracking_number,
-    ]);
-    $ship_date = $sth->fetchColumn();
     
-    $number_of_shipping_days = number_of_shipping_days($ship_date, $delivery_date);
+    $package = $package_repo->findOneBy(['trackingNumber' => $tracking_number]);
+    $ship_date = $package->getShipped();
     
-    $sth = $db->prepare(
-            "UPDATE packages SET delivered = :delivery_date, 
-                shipping_days = :shipping_days
-                WHERE tracking_number = :tracking_number"
-            );
+    $number_of_shipping_days = number_of_shipping_days($ship_date->format('Y-m-d'), $delivery_date);
     
-    $sth->execute([
-        ':delivery_date' => $delivery_date,
-        ':shipping_days' => $number_of_shipping_days,
-        ':tracking_number' => $tracking_number,
-        ]);
+    $package->setDelivered(new DateTime($delivery_date));
+    $package->setShippingDays($number_of_shipping_days);
+    
+    $entityManager->flush();
 }
 
 echo "Updates finished.\n";

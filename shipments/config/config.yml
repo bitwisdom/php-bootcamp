@@ -1,5 +1,5 @@
 db: 
-    type: mysql
+    driver: pdo_mysql
     name: php_examples
     host: localhost
     username: root
