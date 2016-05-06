@@ -3,7 +3,8 @@
     "description": "Deliveries Importer",
     "require": {
         "symfony/yaml": "^3.0",
-        "doctrine/orm": "^2.7"
+        "doctrine/orm": "^2.7",
+        "monolog/monolog": "^1.19"
     },
     "autoload": {
         "psr-4": {

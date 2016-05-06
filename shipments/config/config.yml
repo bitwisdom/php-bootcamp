@@ -7,5 +7,8 @@ db:
     
 package_manager:
     shipping_calculator: '\Bitwisdom\Deliveries\USShippingCalculator'
+    
+logging:
+    file: logs/package_updates.log
 
 other_key: other_value

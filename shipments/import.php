@@ -7,6 +7,10 @@ use Doctrine\ORM\EntityManager;
 use Bitwisdom\Deliveries\PackageManager;
 use Bitwisdom\Deliveries\USShippingCalculator;
 use Bitwisdom\Deliveries\BrazilShippingCalculator;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Doctrine\Common\EventManager;
+use Bitwisdom\Deliveries\PackageEventSubscriber;
 
 if (count($argv) < 2) {
     echo "Missing required argument: Deliveries CSV file\n";
@@ -33,6 +37,13 @@ while($row = fgetcsv($fh)) {
     $deliveries[$row[0]] = $row[1];
 }
 
+
+$log = new Logger('update');
+if (!empty($config['logging']['file'])) {
+    $log->pushHandler(new StreamHandler($config['logging']['file'], Logger::INFO));
+}
+
+
 $paths = [__DIR__ . "/src"];
 
 // database configuration parameters
@@ -42,8 +53,12 @@ $dbParams = array(
     'password' => $config['db']['password'],
     'dbname'   => $config['db']['name'],
 );
+
+$eventManager = new EventManager();
+$eventManager->addEventSubscriber(new PackageEventSubscriber($log));
+
 $entityManagerConfig = Setup::createAnnotationMetadataConfiguration($paths);
-$entityManager = EntityManager::create($dbParams, $entityManagerConfig);
+$entityManager = EntityManager::create($dbParams, $entityManagerConfig, $eventManager);
 
 
 $calculator_class =  '\Bitwisdom\Deliveries\USShippingCalculator';
