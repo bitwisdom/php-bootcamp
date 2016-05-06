@@ -4,5 +4,8 @@ db:
     host: localhost
     username: root
     password: root
+    
+package_manager:
+    shipping_calculator: '\Bitwisdom\Deliveries\USShippingCalculator'
 
 other_key: other_value

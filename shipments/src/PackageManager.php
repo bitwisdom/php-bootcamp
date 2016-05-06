@@ -3,7 +3,7 @@
 namespace Bitwisdom\Deliveries;
 
 use \Doctrine\ORM\EntityManager;
-use Bitwisdom\Deliveries\USShippingCalculator;
+use Bitwisdom\Deliveries\ShippingCalculatorInterface;
 
 class PackageManager {
     
@@ -14,13 +14,13 @@ class PackageManager {
     
     /**
      *
-     * @var USShippingCalculator
+     * @var ShippingCalculatorInterface
      */
     private $shippingCalculator;
     
-    public function __construct(EntityManager $entityManager) {
+    public function __construct(EntityManager $entityManager, ShippingCalculatorInterface $shippingCalculator) {
         $this->entityManager = $entityManager;
-        $this->shippingCalculator = new USShippingCalculator();
+        $this->shippingCalculator = $shippingCalculator;
     }
     
     public function updatePackage($tracking_number, $delivery_date) {

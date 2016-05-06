@@ -5,6 +5,8 @@ include_once 'vendor/autoload.php';
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Bitwisdom\Deliveries\PackageManager;
+use Bitwisdom\Deliveries\USShippingCalculator;
+use Bitwisdom\Deliveries\BrazilShippingCalculator;
 
 if (count($argv) < 2) {
     echo "Missing required argument: Deliveries CSV file\n";
@@ -43,7 +45,14 @@ $dbParams = array(
 $entityManagerConfig = Setup::createAnnotationMetadataConfiguration($paths);
 $entityManager = EntityManager::create($dbParams, $entityManagerConfig);
 
-$package_manager = new PackageManager($entityManager);
+
+$calculator_class =  '\Bitwisdom\Deliveries\USShippingCalculator';
+if (!empty($config['package_manager']['shipping_calculator'])) {
+    $calculator_class = $config['package_manager']['shipping_calculator'];
+}
+$shippingCalculator = new $calculator_class();
+
+$package_manager = new PackageManager($entityManager, $shippingCalculator);
 
 foreach ($deliveries as $tracking_number => $delivery_date) {
     echo "Updating delivery date for: " . $tracking_number . "\n";

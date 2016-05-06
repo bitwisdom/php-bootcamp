@@ -4,11 +4,11 @@ namespace Bitwisdom\Deliveries;
 
 use Bitwisdom\Deliveries\ShippingCalculatorInterface;
 
-class USShippingCalculator implements ShippingCalculatorInterface {
+class BrazilShippingCalculator implements ShippingCalculatorInterface {
     
     public function numberOfShippingDays($from, $to) {
         $shippingDays = [1, 2, 3, 4, 5]; # date format = N (1 = Monday, ...)
-        $holidayDays = ['*-12-25', '*-01-01', '*-07-04']; # variable and fixed holidays
+        $holidayDays = ['*-12-25', '*-01-01', '*-09-07']; # variable and fixed holidays
         $holidayDays = array_flip($holidayDays);
 
         $from = new \DateTime($from);
